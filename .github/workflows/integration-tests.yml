@@ -1,0 +1,58 @@
+---
+
+name: Integration Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          always-auth: false
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Copy .env for test execution
+        run: cp .env.default .env
+
+      - name: Start DB
+        run: npm run db:start
+
+      - name: Run DB migrations
+        run: npm run db:migrate
+
+      - name: Seed DB
+        timeout-minutes: 4
+        run: npm run db:seed
+      - name: Check if seeding twice works correctly
+        timeout-minutes: 4
+        run: npm run db:seed
+
+      - name: Run Tests
+        timeout-minutes: 5
+        run: npm run test
+
+      - name: Stop DB
+        run: npm run db:stop

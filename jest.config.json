@@ -1,0 +1,27 @@
+{
+  "moduleFileExtensions": [
+    "ts",
+    "js",
+    "json"
+  ],
+  "testMatch": [
+    "<rootDir>/src/**/*.(spec|test).ts|tsx",
+    "<rootDir>/test/**/*.(spec|test).ts|tsx"
+  ],
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "testEnvironment": "node",
+  "reporters": [
+    "default"
+  ],
+  "coveragePathIgnorePatterns": [
+    "<rootDir>/node_modules/",
+    "<rootDir>/coverage/"
+  ],
+  "globals": {
+    "ts-jest": {
+      "diagnostics": false
+    }
+  }
+}

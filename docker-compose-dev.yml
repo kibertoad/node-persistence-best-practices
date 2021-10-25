@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgres:14-alpine3.14
+    # see https://www.postgresql.org/docs/current/non-durability.html
+    command: '-c full_page_writes=off -c fsync=off -c synchronous_commit=off'
+    ports:
+      - '35432:5432'
+    environment:
+      - POSTGRES_USER=testuser
+      - POSTGRES_PASSWORD=testpass
+      - POSTGRES_DB=example
+  waitpostgres:
+    image: postgres:14-alpine3.14
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    entrypoint:
+      - bash
+      - -c
+      - 'until /usr/local/bin/psql postgres://testuser:testpass@postgres/example -c "SELECT 1"; do sleep 5; done'
+volumes:
+  data:
