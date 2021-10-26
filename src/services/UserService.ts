@@ -9,7 +9,6 @@ export type NewUserDto = {
   username: string
   email: string
   password: string
-  departmentId?: number
   isBlocked: boolean
 }
 
@@ -17,7 +16,6 @@ export type UserDto = {
   userId: number
   username: string
   email: string
-  departmentId?: number
   isBlocked: boolean
   createdAt: Date
   updatedAt: Date
@@ -35,7 +33,6 @@ export class UserService {
     const userProperties = pickWithoutUndefined(newUser, [
       'username',
       'email',
-      'departmentId',
       'isBlocked',
     ])
 

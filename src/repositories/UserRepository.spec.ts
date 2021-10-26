@@ -21,7 +21,6 @@ describe('UserRepository', () => {
     passwordHash: 'dummy',
   }
   const userAssertion = {
-    departmentId: null,
     email: 'test@test.lt',
     isBlocked: false,
     userId: expect.any(Number),

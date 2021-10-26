@@ -2,7 +2,6 @@ import { UserDto, UserService } from '../../src/services/UserService'
 import { Dependencies } from '../../src/infrastructure/diConfig'
 
 export class UserBuilder {
-  private _departmentId?: number | undefined
   private _username: string
   private _password: string
   private _isBlocked: boolean
@@ -19,10 +18,6 @@ export class UserBuilder {
     this.userService = userService
   }
 
-  public departmentId(departmentId: number): UserBuilder {
-    this._departmentId = departmentId
-    return this
-  }
   public username(username: string): UserBuilder {
     this._username = username
     return this
@@ -43,7 +38,6 @@ export class UserBuilder {
 
   public async build(): Promise<UserDto> {
     const newUser = await this.userService.createUser({
-      departmentId: this._departmentId,
       username: this._username,
       password: this._password,
       isBlocked: this._isBlocked,

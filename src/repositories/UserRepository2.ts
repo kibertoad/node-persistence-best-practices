@@ -11,7 +11,6 @@ export class UserRepository2 extends AbstractRepository<NewUserRow, UserRow, Upd
         'userId',
         'username',
         'email',
-        'departmentId',
         'isBlocked',
         'createdAt',
         'updatedAt',

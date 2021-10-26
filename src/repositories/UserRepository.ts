@@ -6,7 +6,6 @@ export type NewUserRow = {
   username: string
   email: string
   passwordHash: string
-  departmentId?: number
   isBlocked: boolean
 }
 
@@ -21,13 +20,11 @@ export type ListUserRow = Exclude<UserRow, ['passwordHash']>
 export type UpdateUserRow = {
   username?: string
   email?: string
-  departmentId?: number
   isBlocked?: boolean
 }
 
 const ALL_USER_COLUMNS: (keyof UserRow)[] = [
   'userId',
-  'departmentId',
   'username',
   'email',
   'isBlocked',
@@ -38,7 +35,6 @@ const ALL_USER_COLUMNS: (keyof UserRow)[] = [
 
 const LIST_USER_COLUMNS: (keyof UserRow)[] = [
   'userId',
-  'departmentId',
   'username',
   'email',
   'isBlocked',
@@ -49,7 +45,6 @@ const LIST_USER_COLUMNS: (keyof UserRow)[] = [
 const UPDATEABLE_USER_COLUMNS: (keyof UpdateUserRow)[] = [
   'username',
   'email',
-  'departmentId',
   'isBlocked',
 ]
 
