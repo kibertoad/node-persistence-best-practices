@@ -3,12 +3,15 @@ import { Dependencies } from '../infrastructure/diConfig'
 import TransactionProvider = Knex.TransactionProvider
 
 export type BalanceRow = {
+  accountId: number
   userId: number
   balanceAmount: number
   balanceCurrency: string
+  isBlocked: boolean
 }
 
 export type NewAccountRow = {
+  userId: number
   balanceAmount: number
   balanceCurrency: string
   isBlocked: boolean
@@ -32,11 +35,8 @@ export class AccountRepository {
     return result[0]
   }
 
-  async createAccount(userId: number, newAccount: NewAccountRow): Promise<void> {
-    await this.knex('accounts').insert({
-      userId,
-      ...newAccount,
-    })
+  async createAccount(newAccount: NewAccountRow): Promise<void> {
+    await this.knex('accounts').insert(newAccount)
   }
 
   async getBalance(userId: number): Promise<BalanceRow> {

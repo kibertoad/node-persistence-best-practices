@@ -57,7 +57,8 @@ export class AccountService {
   }
 
   async createAccount(userId: number): Promise<void> {
-    await this.accountRepository.createAccount(userId, {
+    await this.accountRepository.createAccount({
+      userId,
       balanceAmount: 0,
       balanceCurrency: 'EUR',
       isBlocked: false,

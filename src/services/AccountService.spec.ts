@@ -1,11 +1,15 @@
 import { AppContainer, createDIContainer } from '../infrastructure/diConfig'
 import tableCleaner from 'knex-tablecleaner'
 import { UserBuilder } from '../../test/builders/UserBuilder'
+import { AccountService } from './AccountService'
+import { AccountService2 } from './AccountService2'
 
 describe('AccountService', () => {
   let container: AppContainer
+  let accountService: AccountService | AccountService2
   beforeAll(() => {
     container = createDIContainer()
+    accountService = container.cradle.accountService2
   })
   beforeEach(async () => {
     await tableCleaner.cleanTables(container.cradle.knex, ['accounts', 'users'])
@@ -16,8 +20,6 @@ describe('AccountService', () => {
 
   describe('transferFundsInternally', () => {
     it('correctly transfers funds', async () => {
-      const { accountService } = container.cradle
-
       const user1 = await new UserBuilder(container.cradle).build()
       const user2 = await new UserBuilder(container.cradle)
         .username('user2')
@@ -36,7 +38,6 @@ describe('AccountService', () => {
 
     it('correctly rollbacks transaction', async () => {
       expect.assertions(2)
-      const { accountService } = container.cradle
 
       const user1 = await new UserBuilder(container.cradle).build()
       await accountService.createAccount(user1.userId)
