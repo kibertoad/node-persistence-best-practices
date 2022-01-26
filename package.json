@@ -18,7 +18,7 @@
   "dependencies": {
     "awilix": "^5.0.1",
     "bcrypt": "^5.0.1",
-    "dotenv": "^10.0.0",
+    "dotenv": "^14.3.2",
     "knex": "^0.95.11",
     "knex-repositories": "^3.1.0",
     "knex-utils": "^5.4.0",
